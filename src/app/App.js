@@ -43,7 +43,7 @@ class App extends Component {
         method: 'PUT',
         body: JSON.stringify({
 
-          nombre_usuario: this.state.nombre_usuario[0],
+          nombre_usuario: this.state.nombre_usuario,
           cedula_usuario: this.state.cedula_usuario,
           telefono_usuario: this.state.telefono_usuario,
           email_usuario: this.state.email_usuario
@@ -63,7 +63,7 @@ class App extends Component {
             email_usuario: '',
             _id: ''
           });
-          this.fetchTasks();
+          this.fetchUsuarios();
         });
     } else {
       console.log(this.state);
@@ -97,7 +97,7 @@ class App extends Component {
 
   deleteUsuario(id) {
     if (confirm('Esta seguro de eleiminar el usuario?')) {
-      fetch(`/usuarios/${id}`, {
+      fetch(`/usuarios/delete/${id}`, {
         method: 'DELETE',
         headers: {
           'Accept': 'application/json',
@@ -144,16 +144,14 @@ class App extends Component {
                 <div className="card-content black-text">
                   <span className="card-title">Usuario</span>
                   <form onSubmit={this.addUsuario} >
-                    <input type="hidden" name="_id" onChange={this.handleChange} value={this.state._id}></input>
+                    <input type="text"  name="_id" onChange={this.handleChange} value={this.state._id}></input>
                     <div className="row">
                       <div className="input-field col s6">
-                        <i className="material-icons prefix">account_circle</i>
-                        <input id="Nombre" name="nombre_usuario" onChange={this.handleChange} value={this.state.nombre_usuario} type="text" className="validate"></input>
+                        <input id="Nombre" type="text" name="nombre_usuario" onChange={this.handleChange} value={this.state.nombre_usuario} type="text" className="validate"></input>
                         <label className="active" for="Nombre">Nombre</label>
                       </div>
 
                       <div className="input-field col s6">
-                        <i className="material-icons prefix">call_to_action</i>
                         <input id="cedula" type="text" name="cedula_usuario" onChange={this.handleChange} value={this.state.cedula_usuario} className="validate"></input>
                         <label className="active" for="cedula">Cedula</label>
                       </div>
@@ -161,13 +159,11 @@ class App extends Component {
 
                     <div className="row">
                       <div className="input-field col s6">
-                        <i className="material-icons prefix">phone</i>
                         <input id="Telefono" type="text" name="telefono_usuario" onChange={this.handleChange} value={this.state.telefono_usuario} className="validate"></input>
                         <label classNames="active" for="Telefono">Telefono</label>
                       </div>
 
                       <div className="input-field col s6">
-                        <i className="material-icons prefix">email</i>
                         <input id="Email" type="email" name="email_usuario" onChange={this.handleChange} value={this.state.email_usuario} className="validate"></input>
                         <label className="active" for="Email">Email</label>
                       </div>
@@ -206,11 +202,9 @@ class App extends Component {
 
                           <td>
                             <button onClick={() => this.deleteUsuario(usuario._id)} className="btn red darken-4">
-                              <i className="material-icons">delete</i>
-                            </button>
+eliminar                            </button>
                             <button onClick={() => this.editUsuario(usuario._id)} className="btn blue darken-4" style={{ margin: '4px' }}>
-                              <i className="material-icons">edit</i>
-                            </button>
+editar                            </button>
                           </td>
                         </tr>
                       )

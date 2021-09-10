@@ -27,14 +27,16 @@ router.post('/', async (req, res) => {
 
 // UPDATE usuario
 router.put('/:id', async (req, res) => {
+  const id = req.params.id;
   const { nombre_usuario,cedula_usuario, telefono_usuario, email_usuario } = req.body;
   const newUsuario = {nombre_usuario,cedula_usuario, telefono_usuario, email_usuario};
-  await Usuarios.findByIdAndUpdate(req.params.id, newUsuario);
+  const new_user = await Usuarios.findByIdAndUpdate( id, newUsuario,  {useFindAndModify: false });
+  //consolle.log(new_user)
   res.json({status: 'usuario actualizado'});
 });
 
 // DELETE usuario
-router.delete('/:id', async (req, res) => {
+router.delete('/delete/:id', async (req, res) => {
   await Usuarios.findByIdAndRemove(req.params.id);
   res.json({status: 'usuario eliminado'});
 });
